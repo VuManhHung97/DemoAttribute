@@ -3,11 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
     id("com.google.firebase.appdistribution")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.example.demoattribution"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.demoattribution"
