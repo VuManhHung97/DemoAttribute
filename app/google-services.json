@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "872602121486",
+    "project_id": "demoattribution-dc4e7",
+    "storage_bucket": "demoattribution-dc4e7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872602121486:android:d0f4c3ad4f7932908b935f",
+        "android_client_info": {
+          "package_name": "com.example.demoattribution"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU7_d3ov4d3AYAxoc1qriND-De2l5DYf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
