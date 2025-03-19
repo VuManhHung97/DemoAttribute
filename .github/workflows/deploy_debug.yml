@@ -2,25 +2,30 @@ name: DeployFirebaseApp
 
 on:
   workflow_dispatch:
-      inputs:
-        release_note:
-          type: string
-          required: true
-          default: 'Manual Debug Build'
-          description: 'Release Notes'
+    inputs:
+      release_note:
+        type: string
+        required: true
+        default: 'Manual Debug Build'
+        description: 'Release Notes'
 
 jobs:
-  DeployFirebaseApp:
-    runs-on: ubuntu-latest
+  deploy-firebase-app:
+    runs-on: [ 'self-hosted', 'linux', 'x64' ]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.2.1
+        env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Set up Java JDK
+        uses: actions/setup-java@v4.4.0
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: '21'
+          distribution: 'zulu'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4.1.0
 
       - name: Remove google_application_credentials.json
         run: rm google_application_credentials.json
