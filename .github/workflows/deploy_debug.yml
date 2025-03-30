@@ -40,6 +40,12 @@ jobs:
           # Find the current versionCode in build.gradle.kts
           VERSION_CODE=$(grep -oP 'versionCode \K\d+' app/build.gradle.kts)
           
+          # Kiểm tra nếu không tìm thấy versionCode
+          if [[ -z "$VERSION_CODE" ]]; then
+            echo "Error: versionCode not found in app/build.gradle.kts"
+            exit 1
+          fi
+          
           # Increment the versionCode
           NEW_VERSION_CODE=$((VERSION_CODE + 1))
           
