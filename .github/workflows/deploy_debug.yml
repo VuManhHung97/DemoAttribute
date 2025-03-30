@@ -35,7 +35,7 @@ jobs:
       - name: Increment Version Code
         run: |
           # Find the current versionCode in build.gradle
-          VERSION_CODE=$(grep -oP 'versionCode \K\d+' app/build.gradle)
+          VERSION_CODE=$(grep -oP 'versionCode \K\d+' app/build.gradle.kts)
           
           # Increment the versionCode
           NEW_VERSION_CODE=$((VERSION_CODE + 1))
