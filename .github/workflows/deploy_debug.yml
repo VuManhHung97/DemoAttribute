@@ -40,12 +40,6 @@ jobs:
           # Find the current versionCode in build.gradle.kts
           VERSION_CODE=$(grep -Eo 'versionCode\s*=\s*[0-9]+' app/build.gradle.kts | awk -F '=' '{print $2}' | tr -d ' ')
           
-          # Kiểm tra nếu không tìm thấy versionCode
-          if [[ -z "$VERSION_CODE" ]]; then
-            echo "Error: versionCode not found in app/build.gradle.kts"
-            exit 1
-          fi
-          
           # Increment the versionCode
           NEW_VERSION_CODE=$((VERSION_CODE + 1))
           
@@ -53,7 +47,10 @@ jobs:
           echo "New Version Code: $NEW_VERSION_CODE"
           
           # Update the build.gradle.kts file with the new versionCode
-          sed -i "s/versionCode $VERSION_CODE/versionCode $NEW_VERSION_CODE/" app/build.gradle.kts
+          sed -i -E "s/(versionCode\s*=\s*)[0-9]+/\1$NEW_VERSION_CODE/" app/build.gradle.kts
+          
+          echo "Checking content after modification"
+          cat app/build.gradle.kts
           
           # Commit the changes to the versionCode
           git config --global user.name "GitHub Actions"
