@@ -34,7 +34,7 @@ jobs:
 
       - name: Increment Version Code
         run: |
-          # Find the current versionCode in build.gradle
+          # Find the current versionCode in build.gradle.kts
           VERSION_CODE=$(grep -oP 'versionCode \K\d+' app/build.gradle.kts)
           
           # Increment the versionCode
@@ -43,8 +43,8 @@ jobs:
           echo "Current Version Code: $VERSION_CODE"
           echo "New Version Code: $NEW_VERSION_CODE"
           
-          # Update the build.gradle file with the new versionCode
-          sed -i "s/versionCode $VERSION_CODE/versionCode $NEW_VERSION_CODE/" app/build.gradle
+          # Update the build.gradle.kts file with the new versionCode
+          sed -i "s/versionCode $VERSION_CODE/versionCode $NEW_VERSION_CODE/" app/build.gradle.kts
           
           # Commit the changes to the versionCode
           git config --global user.name "GitHub Actions"
