@@ -14,7 +14,7 @@ android {
         applicationId = "com.example.demoattribution"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = (project.property("versionCodeBase") as String).toInt()
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
