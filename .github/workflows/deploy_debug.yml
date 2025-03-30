@@ -8,6 +8,11 @@ on:
         required: true
         default: 'Manual Debug Build'
         description: 'Release Notes'
+      tester_groups:
+        type: string
+        required: true
+        default: 'st-testers'
+        description: 'Tester groups'
 
 jobs:
   deploy-firebase-app:
@@ -35,8 +40,15 @@ jobs:
         run: rm release_notes.txt
         continue-on-error: true
 
+      - name: Remove TESTER GROUPS file
+        run: rm tester_groups.txt
+        continue-on-error: true
+
       - name: Create RELEASE NOTE file
         run: echo "${{ inputs.release_note }}" >> release_notes.txt
+
+      - name: Create TESTER GROUPS file
+        run: echo "${{ inputs.tester_groups }}" >> tester_groups.txt
 
       - name: Create google_application_credentials.json
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS" >> google_application_credentials.json
