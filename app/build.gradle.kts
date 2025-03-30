@@ -29,7 +29,8 @@ android {
                 artifactType = "APK"
                 releaseNotesFile = "release_notes.txt"
                 serviceCredentialsFile = "google_application_credentials.json"
-                groupsFile = "tester_groups.txt"
+                // groupsFile = "tester_groups.txt"
+                groups = "st-testers"
             }
         }
         release {
