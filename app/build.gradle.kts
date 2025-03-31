@@ -14,7 +14,6 @@ android {
         applicationId = "com.example.demoattribution"
         minSdk = 24
         targetSdk = 34
-        // versionCode = (project.property("versionCodeBase") as String).toInt()
         versionCode = 1
         versionName = "1.0"
 
