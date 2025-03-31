@@ -43,7 +43,7 @@ jobs:
           FLAVOR_FILE="build-logic/convention/src/main/kotlin/st/ottclouds/template/FlavorConfig.kt"
 
           # Find the current versionCode in build.gradle.kts
-          VERSION_CODE=$(grep -E 'base\([^)]*\)[^{]*versionCode\s*=' "$FLAVOR_FILE" | grep -oE '[0-9]+')
+          VERSION_CODE=$(grep -Po '(?<=base\(.*\n.*versionCode\s*=\s*)\d+' "$FLAVOR_FILE")
           
           if [[ -z "$VERSION_CODE" ]]; then
             echo "Error: versionCode not found in $FLAVOR_FILE"
@@ -57,7 +57,7 @@ jobs:
           echo "New Version Code: $NEW_VERSION_CODE"
           
           # Update the build.gradle.kts file with the new versionCode
-          sed -i -E '/base\(/,/versionCode/ s/(versionCode\s*=\s*)[0-9]+/\1'"$NEW_VERSION_CODE"'/' "$FLAVOR_FILE"
+          sed -i -E "/base\(/,/versionCode/ s/(versionCode\s*=\s*)[0-9]+/\1$NEW_VERSION_CODE/" "$FLAVOR_FILE"
           
           echo "Checking content after modification"
           cat "$FLAVOR_FILE"
