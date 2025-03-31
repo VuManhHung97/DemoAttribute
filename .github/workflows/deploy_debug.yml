@@ -40,8 +40,15 @@ jobs:
 
       - name: Increment Version Code
         run: |
+          FLAVOR_FILE="build-logic/convention/src/main/kotlin/st/ottclouds/template/FlavorConfig.kt"
+
           # Find the current versionCode in build.gradle.kts
-          VERSION_CODE=$(grep -Eo 'versionCode\s*=\s*[0-9]+' app/build.gradle.kts | awk -F '=' '{print $2}' | tr -d ' ')
+          VERSION_CODE=$(grep -Eo 'versionCode\s*=\s*[0-9]+' "$FLAVOR_FILE" | head -n 1 | awk -F '=' '{print $2}' | tr -d ' ')
+          
+          if [[ -z "$VERSION_CODE" ]]; then
+            echo "Error: versionCode not found in $FLAVOR_FILE"
+            exit 1
+          fi
           
           # Increment the versionCode
           NEW_VERSION_CODE=$((VERSION_CODE + 1))
@@ -50,10 +57,10 @@ jobs:
           echo "New Version Code: $NEW_VERSION_CODE"
           
           # Update the build.gradle.kts file with the new versionCode
-          sed -i -E "s/(versionCode\s*=\s*)[0-9]+/\1$NEW_VERSION_CODE/" app/build.gradle.kts
+          sed -i -E "s/(versionCode\s*=\s*)[0-9]+/\1$NEW_VERSION_CODE/" "$FLAVOR_FILE"
           
           echo "Checking content after modification"
-          cat app/build.gradle.kts
+          cat "$FLAVOR_FILE"
           
           # Commit the changes to the versionCode
           git config --global user.name "GitHub Actions"
