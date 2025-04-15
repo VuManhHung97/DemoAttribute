@@ -49,10 +49,12 @@ jobs:
 
       - name: Create RELEASE NOTE file
         run: |
-          echo "Release note:" > release_notes.txt
-          echo "${{ inputs.release_note }}" | sed 's/\\n/\n/g' | sed 's/^/- /' >> release_notes.txt
-          echo "commitId: $(git rev-parse HEAD)" >> release_notes.txt
-          echo "commitMessage: $(git log -1 --pretty=%B)" >> release_notes.txt
+          {
+            echo "Release note:"
+            echo "${{ inputs.release_note }}" | sed 's/\\n/\n/g' | sed 's/^/- /'
+            echo "commitId: $(git rev-parse HEAD)"
+            echo "commitMessage: $(git log -1 --pretty=%B)"
+          } > release_notes.txt
 
       - name: Create TESTER GROUPS file
         run: echo "${{ inputs.tester_groups }}" >> tester_groups.txt
